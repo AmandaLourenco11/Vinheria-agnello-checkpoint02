@@ -1,6 +1,8 @@
 let totalCadastros = 0;
 let estoqueBaixo = 0;
 let continuar = true;
+let safraMaisAntiga = 9999;
+let nomeMaisAntigo = '';
 
 console.log('Informações de Cadastro');
 
@@ -29,17 +31,34 @@ function validarEntrada(mensagem) {
     return valor;
 }
 
+// Função para verificar se o estoque do vinho é baixo (menos de 5 unidades)
 function verificarEstoque(estoque) {
     return Number(estoque) < 5;
 }
 
-function mostrarDados(nome, tipo, estoque) {
+function mostrarDados(nome, tipo, estoque, safra, classificacao) {
     alert("A seguir, veja os detalhes do vinho no console.");
 
     console.log("----- VINHO -----");
     console.log("Nome:", nome);
     console.log("Tipo:", tipo);
     console.log("Quantidade:", estoque);
+    console.log("Safra:", safra);
+    console.log("Classificação:", classificacao);
+}
+
+// Função para classificar se o vinho é jovem, amadurecido ou antigo com base na safra
+function classificarVinho(safra) { 
+    let anoAtual = new Date().getFullYear();
+    let idade = anoAtual - Number(safra);
+
+    if (idade < 3) {
+        return "Vinho jovem";
+    }else if (idade <= 10) {
+        return 'Amadurecido';
+    }else{
+        return 'Antigo';
+    }
 }
 
 while (continuar) {
@@ -63,12 +82,20 @@ while (continuar) {
     alert('Estoque do vinho registrado! Veja os detalhes no console');
     console.log(estoque);
 
+    let classificacao = classificarVinho(safra);
+    console.log(classificacao);
+
     if (verificarEstoque(estoque)) {
         estoqueBaixo++;
         alert("Atenção: estoque baixo!");
     }
+    
+    if (safra < safraMaisAntiga) {
+        safraMaisAntiga = safra;
+        nomeMaisAntigo = nomeVinho;
+    }
 
-    mostrarDados(nomeVinho, tipo, estoque);
+    mostrarDados(nomeVinho, tipo, estoque, safra, classificacao);
 
     totalCadastros++;
 
@@ -85,6 +112,7 @@ alert(
     \nVinhos com estoque baixo: ${estoqueBaixo}`
 );
 
-console.log("RESUMO FINAL");
+console.log("-----RESUMO FINAL-----");
 console.log(`Total de cadastros: ${totalCadastros}`);
 console.log(`Vinhos com estoque baixo: ${estoqueBaixo}`);
+console.log(`Vinho mais antigo: ${nomeMaisAntigo} - (Safra: ${safraMaisAntiga})`);
