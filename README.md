@@ -12,8 +12,10 @@ Nesse projeto, foram implementadas as funcionalidades de cadastrar vários vinho
 * Classificação dos vinhos por safra (jovem, amadurecido ou antigo)
 * Exibição dos dados no console
 
+[Visualizar site](https://amandalourenco11.github.io/Vinheria-agnello-checkpoint02/)
+
 Dupla:
-Amanda Oliveira Lourenço
+Amanda Oliveira Lourenço |
 Giovanna Lopes Scalzone
 
 Engenharia de Software (1ESPJ)
