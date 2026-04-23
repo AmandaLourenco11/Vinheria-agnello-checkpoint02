@@ -4,31 +4,49 @@ let continuar = true;
 let safraMaisAntiga = 9999;
 let nomeMaisAntigo = '';
 
-console.log('Informações de Cadastro');
+//Variáveis dos vinhos
+let nomeVinho1, tipo1, estoque1, safra1, classificacao1;
+let nomeVinho2, tipo2, estoque2, safra2, classificacao2;
+let nomeVinho3, tipo3, estoque3, safra3, classificacao3;
+let nomeVinho4, tipo4, estoque4, safra4, classificacao4;
+let nomeVinho5, tipo5, estoque5, safra5, classificacao5;
 
-let nome = prompt("Digite seu nome pro cadastro:");
+console.log("----- Informações de Cadastro ------");
+
+let nome = validarEntrada("Digite seu nome pro cadastro:");
 alert('Nome registrado! Veja os detalhes no console');
 console.log(nome);
 
-let email = prompt("Digite seu email pro cadastro:");
+let email = validarEntrada("Digite seu email pro cadastro:");
 alert('Email registrado! Veja os detalhes no console');
 console.log(email);
 
-let senha = prompt("Digite sua senha pro cadastro:");
+let senha = validarEntrada("Digite sua senha pro cadastro:");
 alert('Senha registrada! Veja os detalhes no console');
 console.log(senha);
 
 alert('Cadastro realizado! Veja os detalhes no console');
 
-
+// Função para validar se a entrada é vazia, nula ou indefinida
 function validarEntrada(mensagem) {
     let valor = prompt(mensagem);
 
     while (valor === "" || valor === null || valor === undefined) {
+        alert("Por favor, insira uma entrada válida.");
         valor = prompt(mensagem);
     }
 
     return valor;
+}
+
+// Função para validar se a entrada é um número válido
+function validarNumero(mensagem) {
+    let valor = prompt(mensagem);
+    while (isNaN(valor) || valor === "" || valor === null || valor === undefined) {
+        alert("Por favor, insira uma entrada válida.");
+        valor = prompt(mensagem);
+    }
+    return Number(valor);
 }
 
 // Função para verificar se o estoque do vinho é baixo (menos de 5 unidades)
@@ -36,6 +54,7 @@ function verificarEstoque(estoque) {
     return Number(estoque) < 5;
 }
 
+// Função para mostrar os dados do vinho no console
 function mostrarDados(nome, tipo, estoque, safra, classificacao) {
     alert("A seguir, veja os detalhes do vinho no console.");
 
@@ -52,15 +71,16 @@ function classificarVinho(safra) {
     let anoAtual = new Date().getFullYear();
     let idade = anoAtual - Number(safra);
 
-    if (idade < 3) {
+    if (idade <= 3) {
         return "Vinho jovem";
     }else if (idade <= 10) {
-        return 'Amadurecido';
+        return "Amadurecido";
     }else{
-        return 'Antigo';
+        return "Antigo";
     }
 }
 
+// Loop principal para cadastro de vinhos
 while (continuar) {
 
     // Cadastro do vinho
@@ -68,22 +88,17 @@ while (continuar) {
 
     let nomeVinho = validarEntrada("Digite o nome do vinho:");
     alert('Nome do vinho registrado! Veja os detalhes no console');
-    console.log(nomeVinho);
 
     let tipo = validarEntrada('Insira o tipo do vinho (Branco, Tinto ou Rosé): ');
     alert('Tipo do vinho registrado! Veja os detalhes no console');
-    console.log(tipo);
 
-    let safra = prompt('Insira a safra(ano): ');
+    let safra = validarNumero('Insira a safra(ano): ');
     alert('Safra(ano) do vinho registrado! Veja os detalhes no console');
-    console.log(safra);
 
-    let estoque = Number(validarEntrada('Insira a quantidade em estoque: '));
+    let estoque = validarNumero('Insira a quantidade em estoque: ');
     alert('Estoque do vinho registrado! Veja os detalhes no console');
-    console.log(estoque);
 
     let classificacao = classificarVinho(safra);
-    console.log(classificacao);
 
     if (verificarEstoque(estoque)) {
         estoqueBaixo++;
@@ -93,6 +108,39 @@ while (continuar) {
     if (safra < safraMaisAntiga) {
         safraMaisAntiga = safra;
         nomeMaisAntigo = nomeVinho;
+    }
+
+// Armazenamento dos dados de forma numerada para cada vinho cadastrado
+    if (totalCadastros === 1) {
+        nomeVinho1 = nomeVinho;
+        tipo1 = tipo;
+        estoque1 = estoque;
+        safra1 = safra;
+        classificacao1 = classificacao;
+    } else if (totalCadastros === 2) {
+        nomeVinho2 = nomeVinho;
+        tipo2 = tipo;
+        estoque2 = estoque;
+        safra2 = safra;
+        classificacao2 = classificacao;
+    } else if (totalCadastros === 3) {
+        nomeVinho3 = nomeVinho;
+        tipo3 = tipo;   
+        estoque3 = estoque;
+        safra3 = safra;
+        classificacao3 = classificacao;
+    } else if (totalCadastros === 4) {
+        nomeVinho4 = nomeVinho;
+        tipo4 = tipo;
+        estoque4 = estoque;
+        safra4 = safra;
+        classificacao4 = classificacao;
+    } else if (totalCadastros === 5) {
+        nomeVinho5 = nomeVinho;
+        tipo5 = tipo;
+        estoque5 = estoque;
+        safra5 = safra;
+        classificacao5 = classificacao;
     }
 
     mostrarDados(nomeVinho, tipo, estoque, safra, classificacao);
@@ -112,7 +160,7 @@ alert(
     \nVinhos com estoque baixo: ${estoqueBaixo}`
 );
 
-console.log("-----RESUMO FINAL-----");
+console.log("----- RESUMO FINAL -----");
 console.log(`Total de cadastros: ${totalCadastros}`);
 console.log(`Vinhos com estoque baixo: ${estoqueBaixo}`);
 console.log(`Vinho mais antigo: ${nomeMaisAntigo} - (Safra: ${safraMaisAntiga})`);
